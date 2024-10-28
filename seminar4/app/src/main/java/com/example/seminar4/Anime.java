@@ -1,6 +1,11 @@
 package com.example.seminar4;
 
-public class Anime {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Anime implements Parcelable {
+    //alt+enter shortcut pentru generare
+    //pt parcelable dam unde scrie parcelable alt+enter si apoi add implementation
     public String denumire;
     public int anAparitie;
     public String genre;
@@ -14,6 +19,41 @@ public class Anime {
         this.finished = finished;
         this.nrEpisoade = nrEpisoade;
     }
+
+
+    protected Anime(Parcel in) {
+        denumire = in.readString();
+        anAparitie = in.readInt();
+        genre = in.readString();
+        finished = in.readByte() != 0;
+        nrEpisoade = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(denumire);
+        dest.writeInt(anAparitie);
+        dest.writeString(genre);
+        dest.writeByte((byte) (finished ? 1 : 0));
+        dest.writeInt(nrEpisoade);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Anime> CREATOR = new Creator<Anime>() {
+        @Override
+        public Anime createFromParcel(Parcel in) {
+            return new Anime(in);
+        }
+
+        @Override
+        public Anime[] newArray(int size) {
+            return new Anime[size];
+        }
+    };
 
     public String getDenumire() {
         return denumire;

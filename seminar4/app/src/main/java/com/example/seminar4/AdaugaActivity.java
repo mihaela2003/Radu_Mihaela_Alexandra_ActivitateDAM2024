@@ -1,5 +1,6 @@
 package com.example.seminar4;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,12 @@ public class AdaugaActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
 
         setContentView(R.layout.activity_adauga);
+        setContentView(R.layout.activity_adauga);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
         Button btn = findViewById(R.id.buttonAdauga);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -39,15 +46,16 @@ public class AdaugaActivity extends AppCompatActivity {
                 String snrEp = etNrEp.getText().toString();
                 int nrEp = Integer.parseInt(snrEp);
                 Anime anime = new Anime(denumire,an,genre,finished,nrEp);
+
                 Toast.makeText(AdaugaActivity.this,anime.toString(), Toast.LENGTH_LONG).show();
+
+                Intent it = new Intent();
+                it.putExtra("anime", anime);
+                setResult(RESULT_OK,it);
+                finish();
             }
         });
 
-        setContentView(R.layout.activity_adauga);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
     }
 }
