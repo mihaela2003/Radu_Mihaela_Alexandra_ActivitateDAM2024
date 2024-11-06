@@ -29,6 +29,22 @@ public class AdaugaActivity extends AppCompatActivity {
             return insets;
         });
 
+        Intent it = getIntent();
+        if(it.hasExtra("anime")){
+            Anime anime = it.getParcelableExtra("anime");
+            EditText denumireET = findViewById(R.id.editTextDenumire);
+            EditText anET = findViewById(R.id.editTextAn);
+            EditText genreET = findViewById(R.id.editTextGenre);
+            CheckBox finishedCB = findViewById(R.id.cbDa);
+            EditText epET = findViewById(R.id.editTextNrEp);
+
+            denumireET.setText(anime.getDenumire());
+            anET.setText(anime.getAnAparitie());
+            genreET.setText(anime.getGenre());
+            finishedCB.setChecked(anime.isFinished());
+            epET.setText(anime.getNrEpisoade());
+        }
+
         Button btn = findViewById(R.id.buttonAdauga);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -5,10 +5,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -17,6 +20,10 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.List;
 
 public class ListaAnime extends AppCompatActivity {
+
+    private List<Anime> anime = null;
+    private int idModificat=0;
+    private AnimeAdapter adapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +41,19 @@ public class ListaAnime extends AppCompatActivity {
 
         ListView lv = findViewById(R.id.animeLv);
 
-        ArrayAdapter<Anime> adapter =  new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, anime);
+        //ArrayAdapter<Anime> adapter =  new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, anime);
+        //lv.setAdapter(adapter);
+
+        adapter = new AnimeAdapter(anime, getApplicationContext(), R.layout.row_item);
         lv.setAdapter(adapter);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intentModifica = new Intent(getApplicationContext(), AdaugaActivity.class);
+                intentModifica.putExtra("anime", anime.get(i));
+                idModificat = 1;
+                startActivityForResult(intentModifica, 209);
                 Toast.makeText(getApplicationContext(),anime.get(i).toString(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -54,5 +68,16 @@ public class ListaAnime extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK){
+            if(requestCode==209){
+                anime.set(idModificat, data.getParcelableExtra("anime"));
+                adapter.notifyDataSetChanged();
+            }
+        }
     }
 }
