@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">pregatire_test1</string>
     <string name="mesaj">mesaj</string>
+    <string-array name="restanta">
+        <item>Da</item>
+        <item>Nu</item>
+    </string-array>
 </resources>
