@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Adauga">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvNume"
+            android:layout_width="100dp"
+            android:layout_height="48dp"
+            android:text="Nume" />
+
+        <EditText
+            android:id="@+id/etNume"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:ems="10"
+            android:hint="Nume"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="82dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvFirma"
+            android:layout_width="106dp"
+            android:layout_height="48dp"
+            android:text="Firma" />
+
+        <Spinner
+            android:id="@+id/spinnerFirma"
+            android:layout_width="match_parent"
+            android:layout_height="48dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="103dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvAn"
+            android:layout_width="107dp"
+            android:layout_height="48dp"
+            android:text="An nastere" />
+
+        <EditText
+            android:id="@+id/etAn"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:ems="10"
+            android:hint="An nastere"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="109dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvSalariu"
+            android:layout_width="106dp"
+            android:layout_height="48dp"
+            android:text="Salariu" />
+
+        <EditText
+            android:id="@+id/etSalariu"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:ems="10"
+            android:hint="Salariu"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="189dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Button" />
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
