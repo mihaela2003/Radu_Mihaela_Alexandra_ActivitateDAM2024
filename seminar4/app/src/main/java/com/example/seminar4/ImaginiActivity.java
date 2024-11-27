@@ -81,23 +81,29 @@ public class ImaginiActivity extends AppCompatActivity {
                         lista.add(new ImaginiDomeniu("Kiyotaka Ayanokoji", imagini.get(2), "https://www.google.com/url?sa=i&url=https%3A%2F%2Fsoundcloud.com%2Fflaqyy%2Fkiyotaka-ayanokoji-x-im-truly-impressed-x-classroom-of-the-elite&psig=AOvVaw29bnB_rBBlb7ObniM7OrfH&ust=1732815902579000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJji7bWI_YkDFQAAAAAdAAAAABAo"));
                         lista.add(new ImaginiDomeniu("Haikyuu - The dumpster battle", imagini.get(3), "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.imdb.com%2Ftitle%2Ftt30476486%2F&psig=AOvVaw3Y9hKINXRpSWP1XHMU8R7D&ust=1732037726376000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCOimzL215okDFQAAAAAdAAAAABAI"));
                         lista.add(new ImaginiDomeniu("86: Eighty-Six", imagini.get(4), "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.imdb.com%2Ftitle%2Ftt13718450%2F&psig=AOvVaw3Fu8xk7-mAcaBuqWHyYXNb&ust=1732036426036000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCPij1dKw5okDFQAAAAAdAAAAABAE"));
+
+                        ListView lv = findViewById(R.id.imagini);
+                        ImagineAdapter adapter = new ImagineAdapter(lista, getApplicationContext(), R.layout.imagine_layout);
+                        lv.setAdapter(adapter);
+
+                        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                Intent it = new Intent(getApplicationContext(), WebViewActivity.class);
+                                it.putExtra("link", lista.get(i).getLink());
+                                startActivity(it);
+                            }
+                        });
+
                     }
+
                 });
-                ListView lv = findViewById(R.id.imagini);
-                ImagineAdapter adapter = new ImagineAdapter(lista, getApplicationContext(), R.layout.imagine_layout);
-                lv.setAdapter(adapter);
+
             }
         });
 
-        ListView lv = findViewById(R.id.imagini);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent it = new Intent(getApplicationContext(), WebViewActivity.class);
-                it.putExtra("link", lista.get(i).getLink());
-                startActivity(it);
-            }
-        });
+
+
 
 
     }
