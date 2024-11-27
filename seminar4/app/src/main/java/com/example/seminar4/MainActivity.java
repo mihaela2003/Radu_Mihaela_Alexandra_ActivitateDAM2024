@@ -60,6 +60,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(it);
             }
         });
+
+        Button AccuWeatherbtn =  findViewById(R.id.buttonAccuWeather);
+        AccuWeatherbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getApplicationContext(), AccuWeatherActivity.class);
+                startActivity(it);
+            }
+        });
     }
 
     @Override

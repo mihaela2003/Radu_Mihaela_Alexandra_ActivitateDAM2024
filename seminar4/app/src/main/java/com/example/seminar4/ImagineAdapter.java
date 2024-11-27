@@ -41,10 +41,10 @@ public class ImagineAdapter extends BaseAdapter {
         LayoutInflater inflater = LayoutInflater.from(ctx);
         View v = inflater.inflate(resursaLayout, viewGroup, false);
 
-        ImaginiDomeniu imagine = (ImaginiDomeniu) getItem(i);
-
         ImageView imagineIV = v.findViewById(R.id.imagineIV);
         TextView descriereTV = v.findViewById(R.id.descriereTV);
+
+        ImaginiDomeniu imagine = (ImaginiDomeniu) getItem(i);
 
         imagineIV.setImageBitmap(imagine.getImagine());
         descriereTV.setText(imagine.getTextAfisat());

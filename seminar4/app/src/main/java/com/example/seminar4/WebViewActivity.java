@@ -3,6 +3,7 @@ package com.example.seminar4;
 import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,5 +29,7 @@ public class WebViewActivity extends AppCompatActivity {
 
         WebView wv = findViewById(R.id.webView);
         wv.loadUrl(link);
+
+        wv.setWebViewClient(new WebViewClient());
     }
 }
