@@ -13,21 +13,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.room.Room;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class AdaugaActivity extends AppCompatActivity {
+    AnimeDataBase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
 
-        setContentView(R.layout.activity_adauga);
+        //setContentView(R.layout.activity_adauga);
         setContentView(R.layout.activity_adauga);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        database = Room.databaseBuilder(getApplicationContext(), AnimeDataBase.class, "Anime.db").build();
 
         Intent it = getIntent();
         if(it.hasExtra("anime")){
@@ -39,10 +46,10 @@ public class AdaugaActivity extends AppCompatActivity {
             EditText epET = findViewById(R.id.editTextNrEp);
 
             denumireET.setText(anime.getDenumire());
-            anET.setText(anime.getAnAparitie());
+            anET.setText(String.valueOf(anime.getAnAparitie()));
             genreET.setText(anime.getGenre());
             finishedCB.setChecked(anime.isFinished());
-            epET.setText(anime.getNrEpisoade());
+            epET.setText(String.valueOf(anime.getNrEpisoade()));
         }
 
         Button btn = findViewById(R.id.buttonAdauga);
@@ -64,6 +71,14 @@ public class AdaugaActivity extends AppCompatActivity {
                 Anime anime = new Anime(denumire,an,genre,finished,nrEp);
 
                 Toast.makeText(AdaugaActivity.this,anime.toString(), Toast.LENGTH_LONG).show();
+
+                Executor executor = Executors.newSingleThreadExecutor();
+                executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        database.daoAnime().insert(anime);
+                    }
+                });
 
                 Intent it = new Intent();
                 it.putExtra("anime", anime);

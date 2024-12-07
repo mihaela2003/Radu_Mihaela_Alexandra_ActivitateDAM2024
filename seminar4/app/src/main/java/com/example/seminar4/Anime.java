@@ -3,7 +3,15 @@ package com.example.seminar4;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.RoomDatabase;
+
+@Entity(tableName="Animes")
 public class Anime implements Parcelable {
+    @PrimaryKey
+    @NonNull
     //alt+enter shortcut pentru generare
     //pt parcelable dam unde scrie parcelable alt+enter si apoi add implementation
     public String denumire;
@@ -106,4 +114,6 @@ public class Anime implements Parcelable {
         sb.append('}');
         return sb.toString();
     }
+
+
 }
