@@ -1,6 +1,7 @@
 package com.example.seminar4;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.nfc.cardemulation.HostNfcFService;
 import android.os.Bundle;
 import android.os.Handler;
@@ -85,19 +86,23 @@ public class ListaAnime extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //int i -> item pe care se face stergerea, in cazul asta
-                executor.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        database.daoAnime().delete(anime.get(i));
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                anime.remove(i);
-                                adapter.notifyDataSetChanged();//daca nu puneam asta nu se dadea un fel de notificare ca sa dea refresh si sa stearga -> un fel de refresh
-                            }
-                        });
-                    }
-                });
+//                executor.execute(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        database.daoAnime().delete(anime.get(i));
+//                        handler.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                anime.remove(i);
+//                                adapter.notifyDataSetChanged();//daca nu puneam asta nu se dadea un fel de notificare ca sa dea refresh si sa stearga -> un fel de refresh
+//                            }
+//                        });
+//                    }
+//                });
+                SharedPreferences sp = getSharedPreferences("obiecteFavorite", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString(anime.get(i).getKey(), anime.get(i).toString());
+                editor.commit();
                 return false;
             }
         });

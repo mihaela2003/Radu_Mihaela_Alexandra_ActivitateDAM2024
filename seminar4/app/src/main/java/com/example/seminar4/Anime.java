@@ -103,6 +103,14 @@ public class Anime implements Parcelable {
         this.nrEpisoade = nrEpisoade;
     }
 
+    public String getKey(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.denumire);
+        sb.append("-");
+        sb.append(this.nrEpisoade);
+        return sb.toString();
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Anime{");
