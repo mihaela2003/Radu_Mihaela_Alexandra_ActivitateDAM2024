@@ -47,7 +47,7 @@ public class AdaugaAnimal extends AppCompatActivity {
                 EditText etRasa = findViewById(R.id.etrasa);
                 String rasa = etRasa.getText().toString();
                 Spinner spggen = findViewById(R.id.spinner);
-                String gen = spGen.getSelectedItem().toString();
+                String gen = spggen.getSelectedItem().toString();
 
                 Animal animal = new Animal(stapan,nume, rasa, gen);
                 Toast.makeText(getApplicationContext(),animal.toString(), Toast.LENGTH_LONG).show();

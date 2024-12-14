@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">pregatire_test2_2</string>
+    <string-array name="category">
+        <item>happiness</item>
+        <item>age</item>
+        <item>cool</item>
+        <item>dreams</item>
+        <item>hope</item>
+        <item>inspirational</item>
+        <item>money</item>
+        <item>book</item>
+        <item>movie</item>
+        <item>succes</item>
+    </string-array>
+</resources>
