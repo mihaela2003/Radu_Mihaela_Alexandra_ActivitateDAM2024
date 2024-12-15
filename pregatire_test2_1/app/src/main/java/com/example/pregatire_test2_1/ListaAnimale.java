@@ -70,7 +70,7 @@ public class ListaAnimale extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intentModificat = new Intent(getApplicationContext(), AdaugaAnimal.class);
                 intentModificat.putExtra("animal", animale.get(i));
-                idModificat=1;
+                idModificat=i;
                 startActivityForResult(intentModificat, 209);
                 Toast.makeText(getApplicationContext(), animale.get(i).toString(), Toast.LENGTH_LONG).show();
             }

@@ -14,9 +14,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class AddQuote extends AppCompatActivity {
-
+    private QuoteDataBase database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +39,22 @@ public class AddQuote extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spCategory.setAdapter(adapter);
 
+        database = Room.databaseBuilder(getApplicationContext(), QuoteDataBase.class, "Quotes.db").build();
+        Intent it = getIntent();
+
+        if(it.hasExtra("quote")){
+            Quote quote = it.getParcelableExtra("quote");
+            EditText ETQuote = findViewById(R.id.etQuote);
+            EditText ETAuthor = findViewById(R.id.etAuthor);
+            Spinner SPcategory = findViewById(R.id.spinnerCategory);
+            EditText ETYear = findViewById(R.id.etYear);
+
+            ETQuote.setText(quote.getQuote());
+            ETAuthor.setText(quote.getAuthor());
+            SPcategory.setSelection(((ArrayAdapter<CharSequence>) SPcategory.getAdapter()).getPosition(quote.getCategory()));
+            ETYear.setText(""+quote.getYear());
+        }
+
         Button btnAdd = findViewById(R.id.buttonAdd);
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +71,14 @@ public class AddQuote extends AppCompatActivity {
 
                 Quote quote1 = new Quote(quote, author, category, year);
                 Toast.makeText(getApplicationContext(), quote1.toString(), Toast.LENGTH_LONG).show();
+
+                Executor executor = Executors.newSingleThreadExecutor();
+                executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        database.daoQuote().insert(quote1);
+                    }
+                });
 
                 Intent it = new Intent();
                 it.putExtra("quote", quote1);
