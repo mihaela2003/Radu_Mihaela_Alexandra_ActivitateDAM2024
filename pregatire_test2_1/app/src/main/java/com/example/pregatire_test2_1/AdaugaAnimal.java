@@ -14,8 +14,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.room.Room;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class AdaugaAnimal extends AppCompatActivity {
+    AnimalDataBase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,21 @@ public class AdaugaAnimal extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spGen.setAdapter(adapter);
 
+        database = Room.databaseBuilder(getApplicationContext(), AnimalDataBase.class,"Animale.db").build();
+        Intent it = getIntent();
+        if(it.hasExtra("animal")){
+            Animal animal = it.getParcelableExtra("animal");
+            EditText ETStapan = findViewById(R.id.etStapan);
+            EditText ETNume = findViewById(R.id.etNumeAnimal);
+            EditText ETRasa = findViewById(R.id.etrasa);
+            Spinner SPggen = findViewById(R.id.spinner);
+
+            ETStapan.setText(animal.getStapan());
+            ETNume.setText(animal.getNume());
+            ETRasa.setText(animal.getRasa());
+            SPggen.setSelection(((ArrayAdapter<CharSequence>) SPggen.getAdapter()).getPosition(animal.getGen()));
+        }
+
         Button btnAdaugaAnimal = findViewById(R.id.btnAdaugaAnimal);
         btnAdaugaAnimal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +71,14 @@ public class AdaugaAnimal extends AppCompatActivity {
 
                 Animal animal = new Animal(stapan,nume, rasa, gen);
                 Toast.makeText(getApplicationContext(),animal.toString(), Toast.LENGTH_LONG).show();
+
+                Executor executor = Executors.newSingleThreadExecutor();
+                executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        database.daoAnimal().insert(animal);
+                    }
+                });
 
                 Intent it = new Intent();
                 it.putExtra("animal", animal);

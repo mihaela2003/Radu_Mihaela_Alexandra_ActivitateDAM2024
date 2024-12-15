@@ -3,7 +3,15 @@ package com.example.pregatire_test2_1;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+
+@Entity(tableName="Animale")
 public class Animal implements Parcelable {
+    @PrimaryKey
+    @NonNull
     private String stapan;
     private String nume;
     private String rasa;
