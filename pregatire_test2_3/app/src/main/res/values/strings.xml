@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">pregatire_test2_3</string>
+    <string-array name="gender">
+        <item>F</item>
+        <item>M</item>
+    </string-array>
+</resources>
