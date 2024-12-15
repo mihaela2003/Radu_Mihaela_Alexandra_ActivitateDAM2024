@@ -17,6 +17,12 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -76,6 +82,19 @@ public class AddQuote extends AppCompatActivity {
                 executor.execute(new Runnable() {
                     @Override
                     public void run() {
+                        try{
+                            FileOutputStream file = openFileOutput("obiecte.txt", MODE_APPEND);
+                            OutputStreamWriter output = new OutputStreamWriter(file);
+                            BufferedWriter writer = new BufferedWriter(output);
+                            writer.write(quote1.toString());
+                            writer.close();
+                            output.close();
+                            file.close();
+                        } catch (FileNotFoundException e) {
+                            throw new RuntimeException(e);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                         database.daoQuote().insert(quote1);
                     }
                 });
