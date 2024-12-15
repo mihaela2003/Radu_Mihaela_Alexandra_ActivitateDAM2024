@@ -14,8 +14,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.room.Room;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class AddCelebrity extends AppCompatActivity {
+    CelebrityDataBase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,25 @@ public class AddCelebrity extends AppCompatActivity {
                 R.array.gender,
                 android.R.layout.simple_spinner_item);
         spinner.setAdapter(adapter);
+
+        database = Room.databaseBuilder(getApplicationContext(), CelebrityDataBase.class, "Celebrities.db").build();
+        Intent it = getIntent();
+        if(it.hasExtra("celebrity")){
+            Celebrity celebrity = it.getParcelableExtra("celebrity");
+            EditText etName = findViewById(R.id.etName);
+            Spinner spGender = findViewById(R.id.spinnerGender);
+            EditText etNationality = findViewById(R.id.etNationality);
+            EditText etOccupation = findViewById(R.id.etOccupation);
+            EditText etHeight = findViewById(R.id.etHeight);
+            EditText etBirthday = findViewById(R.id.etBirthday);
+
+            etName.setText(celebrity.getName());
+            spGender.setSelection(((ArrayAdapter<CharSequence>)spGender.getAdapter()).getPosition(celebrity.getGender()));
+            etNationality.setText(celebrity.getNationality());
+            etOccupation.setText(celebrity.getOccupation());
+            etHeight.setText(""+celebrity.getHeight());
+            etBirthday.setText(celebrity.getBirthday());
+        }
 
         Button btnAdd = findViewById(R.id.buttonAdd);
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +79,14 @@ public class AddCelebrity extends AppCompatActivity {
 
                 Celebrity celebrity = new Celebrity(name, gender, nationality, occupation, height, birthday);
                 Toast.makeText(getApplicationContext(), celebrity.toString(), Toast.LENGTH_LONG).show();
+
+                Executor executor = Executors.newSingleThreadExecutor();
+                executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        database.daoCelebrity().insert(celebrity);
+                    }
+                });
 
                 Intent it = new Intent();
                 it.putExtra("celebrity", celebrity);
