@@ -1,6 +1,7 @@
 package com.example.pregatire_test2_1;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -79,20 +80,23 @@ public class ListaAnimale extends AppCompatActivity {
         lvAnimal.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                executor.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        database.daoAnimal().delete(animale.get(i));
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                animale.remove(i);
-                                adapter.notifyDataSetChanged();
-                            }
-                        });
-                    }
-                });
-
+//                executor.execute(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        database.daoAnimal().delete(animale.get(i));
+//                        handler.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                animale.remove(i);
+//                                adapter.notifyDataSetChanged();
+//                            }
+//                        });
+//                    }
+//                });
+                SharedPreferences sp = getSharedPreferences("obiecteFavorite", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString(animale.get(i).getkey(), animale.get(i).toString());
+                editor.commit();
                 return false;
             }
         });

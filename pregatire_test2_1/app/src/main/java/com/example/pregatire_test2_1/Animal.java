@@ -88,6 +88,16 @@ public class Animal implements Parcelable {
         this.gen = gen;
     }
 
+    public String getkey(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.nume);
+        sb.append("-");
+        sb.append(this.stapan);
+        sb.append("-");
+        sb.append(this.rasa);
+        return  sb.toString();
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Animal{");
