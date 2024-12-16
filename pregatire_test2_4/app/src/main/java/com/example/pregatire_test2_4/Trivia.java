@@ -75,6 +75,14 @@ public class Trivia implements Parcelable {
         this.answer = answer;
     }
 
+    public String getkey(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(category);
+        sb.append("-");
+        sb.append(question);
+        return sb.toString();
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Trivia{");

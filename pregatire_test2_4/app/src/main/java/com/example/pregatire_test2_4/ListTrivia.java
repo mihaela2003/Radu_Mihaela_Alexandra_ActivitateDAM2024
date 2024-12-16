@@ -1,6 +1,7 @@
 package com.example.pregatire_test2_4;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -80,19 +81,23 @@ public class ListTrivia extends AppCompatActivity {
         lvTrivia.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                executor.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        database.daoTrivia().delete(trivias.get(i));
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                trivias.remove(i);
-                                adapter.notifyDataSetChanged();
-                            }
-                        });
-                    }
-                });
+//                executor.execute(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        database.daoTrivia().delete(trivias.get(i));
+//                        handler.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                trivias.remove(i);
+//                                adapter.notifyDataSetChanged();
+//                            }
+//                        });
+//                    }
+//                });
+                SharedPreferences sp = getSharedPreferences("obiecteFavorite", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString(trivias.get(i).getkey(), trivias.get(i).toString());
+                editor.commit();
                 return false;
             }
         });
