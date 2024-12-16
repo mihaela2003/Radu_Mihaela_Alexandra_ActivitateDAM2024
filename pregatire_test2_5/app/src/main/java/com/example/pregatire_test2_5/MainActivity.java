@@ -56,6 +56,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(it);
             }
         });
+        Button btnFavorite = findViewById(R.id.btnFavorite);
+        btnFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getApplicationContext(), SharedPreferencesList.class);
+                startActivity(it);
+            }
+        });
     }
 
     @Override

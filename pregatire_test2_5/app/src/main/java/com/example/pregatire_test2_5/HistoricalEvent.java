@@ -87,6 +87,13 @@ public class HistoricalEvent implements Parcelable {
         this.event = event;
     }
 
+    public String getkey(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(year+"-");
+        sb.append(event);
+        return sb.toString();
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("HistoricalEvent{");
