@@ -87,6 +87,13 @@ public class Quote implements Parcelable {
             return new Quote[size];
         }
     };
+    public String getkey(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(quote);
+        sb.append("-");
+        sb.append(author);
+        return sb.toString();
+    }
 
     @Override
     public String toString() {
