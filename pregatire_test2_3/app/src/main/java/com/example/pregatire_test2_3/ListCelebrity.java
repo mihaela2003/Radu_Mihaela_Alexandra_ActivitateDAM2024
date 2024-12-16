@@ -1,6 +1,7 @@
 package com.example.pregatire_test2_3;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -77,19 +78,23 @@ public class ListCelebrity extends AppCompatActivity {
         lvCelebrity.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                executor.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        dataBase.daoCelebrity().delete(celebrities.get(i));
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                celebrities.remove(i);
-                                adapter.notifyDataSetChanged();
-                            }
-                        });
-                    }
-                });
+//                executor.execute(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        dataBase.daoCelebrity().delete(celebrities.get(i));
+//                        handler.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                celebrities.remove(i);
+//                                adapter.notifyDataSetChanged();
+//                            }
+//                        });
+//                    }
+//                });
+                SharedPreferences sp = getSharedPreferences("obiecteFavorite", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString(celebrities.get(i).getkey(), celebrities.get(i).toString());
+                editor.commit();
                 return false;
             }
         });

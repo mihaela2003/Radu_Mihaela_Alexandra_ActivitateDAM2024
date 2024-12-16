@@ -111,6 +111,14 @@ public class Celebrity implements Parcelable {
         this.birthday = birthday;
     }
 
+    public String getkey(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(name);
+        sb.append("-");
+        sb.append(birthday);
+        return sb.toString();
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Celebrity{");
