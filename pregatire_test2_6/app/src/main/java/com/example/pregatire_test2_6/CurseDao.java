@@ -20,4 +20,6 @@ public interface CurseDao {
     void delete(Curse curse);
     @Query("SELECT COUNT(id) FROM CURSE")
     int count();
+    @Update
+    void update(Curse curse);
 }

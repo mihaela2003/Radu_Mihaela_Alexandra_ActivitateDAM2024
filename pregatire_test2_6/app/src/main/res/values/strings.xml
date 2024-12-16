@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">pregatire_test2_6</string>
+    <string name="mesaj">numarul de inregistrari din db este de: </string>
+    <string name="destinatie">Destinatie</string>
+    <string name="distanta">Distanta</string>
+    <string name="btnSalveaza">Salveaza</string>
+    <string name="btnIncarca">Incarca</string>
+    <string name="btnSterge">Sterge tot</string>
+    <string name="protejat">text protejat</string>
+</resources>
