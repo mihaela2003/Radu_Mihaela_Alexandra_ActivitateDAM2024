@@ -4,12 +4,12 @@ plugins {
 }
 
 android {
-    namespace = "com.example.seminar4"
+    namespace = "com.example.testfirebase"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.seminar4"
-        minSdk = 23
+        applicationId = "com.example.testfirebase"
+        minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -33,13 +33,12 @@ android {
 }
 
 dependencies {
-    implementation(libs.firebase.database)
-    annotationProcessor("androidx.room:room-compiler:2.6.1")
-    implementation("androidx.room:room-runtime:2.6.1")
+
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.firebase.database)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

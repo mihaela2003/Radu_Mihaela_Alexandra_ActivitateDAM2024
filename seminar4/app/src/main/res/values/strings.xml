@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">seminar4</string>
+    <string name="Buton_adauga">Buton adauga</string>
     <string-array name="days">
         <item>1</item>
         <item>5</item>

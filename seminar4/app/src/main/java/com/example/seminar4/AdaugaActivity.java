@@ -15,6 +15,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.room.Room;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -73,7 +76,34 @@ public class AdaugaActivity extends AppCompatActivity {
                 EditText etNrEp = findViewById(R.id.editTextNrEp);
                 String snrEp = etNrEp.getText().toString();
                 int nrEp = Integer.parseInt(snrEp);
+
+                CheckBox cbDisponibil = findViewById(R.id.cbDisponibilOnline);
+                Boolean disponibilOnline = cbDisponibil.isChecked();
+                //sa salvez in fisier pe cele bifate
+
+
                 Anime anime = new Anime(denumire,an,genre,finished,nrEp);
+                if(disponibilOnline){
+//                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+//                    DatabaseReference myRef = database.getReference("message");
+//
+//                    myRef.setValue("Hello, World!");
+                    try{
+                        FileOutputStream file;
+                        file = openFileOutput("elementeBifate.txt", MODE_APPEND);
+                        OutputStreamWriter output = new OutputStreamWriter(file);
+                        BufferedWriter writer = new BufferedWriter(output);
+                        writer.write(anime.toString());
+                        writer.close();
+                        output.close();
+                        file.close();
+                        Toast.makeText(AdaugaActivity.this, "element adaugat in fisier", Toast.LENGTH_LONG);
+                    } catch (FileNotFoundException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
 
                 Toast.makeText(AdaugaActivity.this,anime.toString(), Toast.LENGTH_LONG).show();
 
